@@ -5,24 +5,35 @@ Manage DN42 zone files with CoreDNS and Git.
 ## Structure
 
 ```
-├── Corefile                 # CoreDNS config (reload plugin enabled)
+├── Corefile            # CoreDNS config
 ├── zones/
-│   ├── db.YOUR-DOMAIN       # Forward zone file (replace with yours)
-│   └── db.YOUR-REVERSE      # Reverse zone file (replace with yours)
+│   └── ...             # Zone files (db.*)
 └── scripts/
-    └── deploy.sh            # One-click deploy script
+    ├── deploy.sh       # One-click deploy script
+    ├── add-record.sh   # Add DNS records to zone files
+    ├── list.sh         # Pretty-print zone records
+    ├── serial.sh       # Update SOA serial numbers
+    └── git-pull.sh     # Pull latest zones on the server
 ```
 
 ## Deploy
 
-```bash
+Just use one-click script:
+
+```sh
+bash <(curl -sSL https://raw.githubusercontent.com/WolfYangFan/dn42-zones/refs/heads/main/scripts/deploy.sh
+```
+
+or:
+
+```sh
 # Specify repo URL, use default CoreDNS binary URL
-./scripts/deploy.sh -r git@github.com:your/dn42-zones.git
+./scripts/deploy.sh -r https://github.com/WolfYangFan/dn42-zones.git
 
 # Custom binary URL
 ./scripts/deploy.sh \
   -u https://example.com/path/coredns-linux-amd64 \
-  -r git@github.com:your/dn42-zones.git
+  -r https://github.com/WolfYangFan/dn42-zones.git
 ```
 
 The deploy script will:
@@ -32,13 +43,53 @@ The deploy script will:
 3. Clone repo to `/opt/dn42-zones`
 4. Create and enable systemd service
 
+## Scripts
+
+### add-record.sh
+
+Add DNS records to zone files. Supports A, AAAA, CNAME, MX, TXT, PTR, NS types. Auto-updates SOA serial.
+
+```sh
+./scripts/add-record.sh -z wyf.dn42 -t A -n www -v 172.21.104.50
+./scripts/add-record.sh -z wyf.dn42 -t AAAA -n www -v fd3b:ed51:c993::50
+./scripts/add-record.sh -z wyf.dn42 -t CNAME -n mail -v ns1
+```
+
+### list.sh
+
+Pretty-print zone records. Filter by type or target a specific zone.
+
+```sh
+./scripts/list.sh                    # List all zones
+./scripts/list.sh wyf.dn42           # List records in a specific zone
+./scripts/list.sh --type A           # Filter by record type
+./scripts/list.sh wyf.dn42 --type AAAA
+```
+
+### serial.sh
+
+Update SOA serial to `YYYYMMDDNN` format. Useful after manual edits.
+
+```sh
+./scripts/serial.sh                  # Bump serial for all zone files
+./scripts/serial.sh --date 20260401  # Use a specific date
+```
+
+### git-pull.sh
+
+Silently pull latest zone files on the server (used by cron/systemd timers).
+
+```sh
+./scripts/git-pull.sh
+```
+
 ## Reloading
 
 The CoreDNS `file` plugin reads zone files periodically, so changes to `zones/db.*` are picked up automatically.
 
 ## Validate locally
 
-```bash
-named-checkzone example.dn42 zones/db.example
-named-checkzone 0.0.0.0.in-addr.arpa zones/db.0.0.0.0
+```sh
+named-checkzone wyf.dn42 zones/db.wyf.dn42
+named-checkzone 32-27.104.21.172.in-addr.arpa zones/db.32-27.104.21.172.in-addr.arpa
 ```
