@@ -26,3 +26,8 @@ wyf.dn42 {
     log
     errors
 }
+
+. {
+    forward . 100.66.66.33:5353 1.0.0.1 tls://1.1.1.1 tls://dns.quad9.net
+    cache 120
+}
