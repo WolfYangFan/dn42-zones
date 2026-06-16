@@ -1,0 +1,62 @@
+$ORIGIN  wyf.dn42.
+$TTL     600
+@        3600  IN SOA   ns1.wyf.dn42. hostmaster.wyf.dn42. (
+                        2026061600 ; Serial
+                        10800      ; Refresh
+                        3600       ; Retry
+                        604800     ; Expire
+                        300 )      ; Negative Cache TTL
+
+; WolfYangFan DN42 infrastructure
+@              IN NS    ns1.wyf.dn42.
+; Backup DNS
+@              IN NS    ns2.wyf.dn42.
+
+; Default Service
+@              IN AAAA  fd3b:ed51:c993::1
+@              IN A     172.21.104.33
+ns1            IN AAAA  fd3b:ed51:c993::1
+ns1            IN A     172.21.104.33
+ns2            IN AAAA  fd3b:ed51:c993::3
+ns2            IN A     172.21.104.35
+ns3            IN A     172.21.104.34
+
+; CNAME defines
+ingress-jp     IN A     172.21.104.33
+ingress-jp     IN AAAA  fd3b:ed51:c993::1
+ingress-hk     IN A     172.21.104.37
+ingress-hk     IN AAAA  fd3b:ed51:c993::5
+ingress-cn     IN A     172.21.104.34
+
+; Minecraft Server
+; mc             IN A     172.21.104.34
+
+; Blog
+blog           IN CNAME ingress-jp.wyf.dn42.
+
+; WHOIS Service
+whois          IN CNAME ingress-jp.wyf.dn42.
+
+; Speedtest
+speed          IN A     172.21.104.35
+
+; Yacy Server
+yacy           IN CNAME ingress-jp.wyf.dn42.
+
+; Radio Station
+radio          IN CNAME ingress-jp.wyf.dn42.
+
+; Email
+mail           IN A     172.21.104.34
+mail           IN AAAA  fd3b:ed51:c993::2
+@              IN MX    10 mail.wyf.dn42.
+@               IN TXT   "v=spf1 mx ~all"
+; DKIM
+mail._domainkey IN TXT ( "v=DKIM1; k=rsa; " 
+	"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvYVNKaje4HqXPbZGYx6GffU13zkARm54n6CCoYzWvYR9oyFsd7qsGozZe/38ruS3K39YFArlMRFfAuIhd/fRfczNnulJU/P34urtSNL7mnfGv7MONaTRIKnUx+hWgiNsl+jFLdsKASPuEjew4zuUm5bBY+JVwkPYrvBdwD6OTI0zW7TDLqtepQq67jkwT/BdXEtIl9U+PZ9yTsRlX" 
+	"ZFjg1g28tFomVh5kPh9HF5ioYXqmZZRtTkeA3Ei5En+AZjzURB53QsYDCq1PUw5IoPdNHCCpHggJKF5S1cJHUpNnrZeDEVsLtQmDKMyAHWnTgHocN6kAomSudgMt03ed/cwNQIDAQAB"
+) ; 
+dkim._domainkey IN TXT ( "v=DKIM1; k=rsa; " 
+	"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvYVNKaje4HqXPbZGYx6GffU13zkARm54n6CCoYzWvYR9oyFsd7qsGozZe/38ruS3K39YFArlMRFfAuIhd/fRfczNnulJU/P34urtSNL7mnfGv7MONaTRIKnUx+hWgiNsl+jFLdsKASPuEjew4zuUm5bBY+JVwkPYrvBdwD6OTI0zW7TDLqtepQq67jkwT/BdXEtIl9U+PZ9yTsRlX" 
+	"ZFjg1g28tFomVh5kPh9HF5ioYXqmZZRtTkeA3Ei5En+AZjzURB53QsYDCq1PUw5IoPdNHCCpHggJKF5S1cJHUpNnrZeDEVsLtQmDKMyAHWnTgHocN6kAomSudgMt03ed/cwNQIDAQAB"
+) ;

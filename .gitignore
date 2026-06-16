@@ -1,0 +1,3 @@
+coredns
+*.core
+.DS_Store

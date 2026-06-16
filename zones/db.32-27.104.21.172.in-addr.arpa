@@ -1,0 +1,22 @@
+$ORIGIN 32/27.104.21.172.in-addr.arpa.
+$TTL     600
+@        3600  IN SOA   ns1.wyf.dn42. hostmaster.wyf.dn42. (
+                        2026061600 ; Serial
+                        10800      ; Refresh
+                        3600       ; Retry
+                        604800     ; Expire
+                        300 )      ; Negative Cache TTL
+
+@              IN NS    ns1.wyf.dn42.
+
+33             IN PTR   v1-tyo.jp.dn42.xst.fan.
+34             IN PTR   c1-wuh.cn.dn42.xst.fan.
+35             IN PTR   a1-hkg.hk.dn42.xst.fan.
+36             IN PTR   idk-idk.us.dn42.xst.fan.
+; route-chain 172.21.104.40/29 &
+41          1  IN PTR   xn--56v30z094a7ka.
+42          1  IN PTR   xn--sxr.xn--fmtw99k.
+43          1  IN PTR   xn--njq1ii1l2wmnhko98fgta.xn--zqqx4qsrqyyb0y5afi3cgta.
+44          1  IN PTR   xn--4gq0a357ay9fk23f7isgta.xn--9kq57ii7na590zd9e194b.
+45          1  IN PTR   xn--jmra350fk1id5be6j9n6f.xn--bzwr27b4ma6ya2241b1fa.
+46          1  IN PTR   xn--wjq0wz4co0n5wq2maq2a.xn--fhqqq6sj47cv5mpwag8r.
