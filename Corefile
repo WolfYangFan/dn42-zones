@@ -1,6 +1,7 @@
 dn42 20.172.in-addr.arpa 21.172.in-addr.arpa 22.172.in-addr.arpa 23.172.in-addr.arpa 10.in-addr.arpa d.f.ip6.arpa {
     forward . 172.20.0.53 172.23.0.53
-    cache 30
+    cache 60
+    any
     log
     errors
 }
@@ -8,7 +9,6 @@ dn42 20.172.in-addr.arpa 21.172.in-addr.arpa 22.172.in-addr.arpa 23.172.in-addr.
 wyf.dn42 {
     file zones/db.wyf.dn42
     reload
-    cache 30
     log
     errors
 }
@@ -16,7 +16,6 @@ wyf.dn42 {
 32/27.104.21.172.in-addr.arpa {
     file zones/db.32-27.104.21.172.in-addr.arpa
     reload
-    cache 30
     log
     errors
 }
@@ -24,7 +23,6 @@ wyf.dn42 {
 3.9.9.c.1.5.d.e.b.3.d.f.ip6.arpa {
     file zones/db.3.9.9.c.1.5.d.e.b.3.d.f.ip6.arpa
     reload
-    cache 30
     log
     errors
 }

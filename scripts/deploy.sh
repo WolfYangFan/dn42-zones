@@ -53,12 +53,12 @@ for attempt in 1 2 3; do
     fi
 
     if command -v curl &>/dev/null; then
-        if curl -fsSL "$try_url" -o /tmp/coredns; then
+        if curl -fSL --progress-bar "$try_url" -o /tmp/coredns; then
             downloaded=1
             break
         fi
     elif command -v wget &>/dev/null; then
-        if wget -q "$try_url" -O /tmp/coredns; then
+        if wget --show-progress "$try_url" -O /tmp/coredns; then
             downloaded=1
             break
         fi
@@ -92,6 +92,16 @@ else
     git clone "$REPO_URL" "$ZONES_DIR"
 fi
 
+echo "==> Setting up crontab for auto-pull ..."
+CRON_JOB="*/30 * * * * /opt/dn42-zones/scripts/git-pull.sh"
+if (crontab -l 2>/dev/null | grep -qF "$CRON_JOB"); then
+    echo "  crontab entry already exists"
+else
+    (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab - \
+        && echo "  crontab installed" \
+        || echo "  WARNING: failed to install crontab" >&2
+fi
+
 echo "==> Creating systemd service ..."
 cat > "$SERVICE_FILE" << 'SERVICEEOF'
 [Unit]
@@ -100,6 +110,7 @@ After=network.target
 
 [Service]
 Type=simple
+WorkingDirectory=/opt/dn42-zones
 ExecStart=/usr/local/bin/coredns -conf=/opt/dn42-zones/Corefile
 Restart=on-failure
 RestartSec=5
@@ -108,6 +119,16 @@ LimitNOFILE=1048576
 [Install]
 WantedBy=multi-user.target
 SERVICEEOF
+
+echo "==> Stopping systemd-resolved (it blocks port 53) ..."
+systemctl stop systemd-resolved || true
+systemctl disable systemd-resolved 2>/dev/null || true
+
+if ss -tlnp 'sport = :53' 2>/dev/null | grep -q .; then
+    echo "  WARNING: Port 53 still in use after stopping systemd-resolved" >&2
+else
+    echo "  Port 53 is free"
+fi
 
 # ---- 5. Enable and start ----
 echo "==> Enabling and starting service ..."
