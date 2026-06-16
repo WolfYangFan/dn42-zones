@@ -7,12 +7,10 @@ set -euo pipefail
 #   ./scripts/deploy.sh
 #   ./scripts/deploy.sh -u <URL> -r <REPO_URL>
 #
-# Default download URL: https://s3.6l.ink/temp/coredns-linux-amd64
-# Fallback: s4.6l.ink
 
 DOWNLOAD_URL="https://s3.6l.ink/temp/coredns-linux-amd64"
 FALLBACK_DOMAIN="s4.6l.ink"
-REPO_URL="${REPO_URL:-}"
+REPO_URL="${REPO_URL:-https://github.com/WolfYangFan/dn42-zones.git}"
 INSTALL_DIR="/usr/local/bin"
 ZONES_DIR="/opt/dn42-zones"
 SERVICE_FILE="/etc/systemd/system/coredns.service"
