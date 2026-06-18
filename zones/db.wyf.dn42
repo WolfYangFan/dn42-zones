@@ -43,8 +43,10 @@ speed          IN A     172.21.104.35
 ; Yacy Server
 yacy           IN CNAME ingress-jp.wyf.dn42.
 
-; Radio Station
-radio          IN CNAME ingress-jp.wyf.dn42.
+; Music
+radio          IN CNAME ingress-jp.wyf.dn42. ; Redirect to music.wyf.dn42
+music          IN CNAME ingress-jp.wyf.dn42.
+music-backend  IN CNAME ingress-jp.wyf.dn42.
 
 ; Email
 mail           IN A     172.21.104.34
