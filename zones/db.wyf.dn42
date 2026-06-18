@@ -1,7 +1,7 @@
 $ORIGIN  wyf.dn42.
 $TTL     600
 @        3600  IN SOA   ns1.wyf.dn42. hostmaster.wyf.dn42. (
-                        2026061600 ; Serial
+                        2026061901 ; Serial
                         10800      ; Refresh
                         3600       ; Retry
                         604800     ; Expire
@@ -43,7 +43,7 @@ speed          IN A     172.21.104.35
 ; Yacy Server
 yacy           IN CNAME ingress-jp.wyf.dn42.
 
-; Music
+; Media
 radio          IN CNAME ingress-jp.wyf.dn42. ; Redirect to music.wyf.dn42
 music          IN CNAME ingress-jp.wyf.dn42.
 music-backend  IN CNAME ingress-jp.wyf.dn42.

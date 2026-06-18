@@ -7,27 +7,36 @@ dn42 20.172.in-addr.arpa 21.172.in-addr.arpa 22.172.in-addr.arpa 23.172.in-addr.
 }
 
 wyf.dn42 {
-    file zones/db.wyf.dn42
-    reload
+    file zones/db.wyf.dn42 {
+        reload 30s
+    }
     log
     errors
 }
 
 32/27.104.21.172.in-addr.arpa {
-    file zones/db.32-27.104.21.172.in-addr.arpa
-    reload
+    file zones/db.32-27.104.21.172.in-addr.arpa {
+        reload 30s
+    }
     log
     errors
 }
 
 3.9.9.c.1.5.d.e.b.3.d.f.ip6.arpa {
-    file zones/db.3.9.9.c.1.5.d.e.b.3.d.f.ip6.arpa
-    reload
+    file zones/db.3.9.9.c.1.5.d.e.b.3.d.f.ip6.arpa {
+        reload 30s
+    }
     log
     errors
 }
 
+# chaos
+version.bind version.server authors.bind hostname.bind id.server {
+    chaos xst-fan dn42@wolfyang.fan
+}
+
 . {
     forward . 100.66.66.33:5353 1.0.0.1 tls://1.1.1.1 tls://dns.quad9.net
+    reload
     cache 120
 }
