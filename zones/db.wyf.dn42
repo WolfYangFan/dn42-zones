@@ -52,13 +52,20 @@ music-backend  IN CNAME ingress-jp.wyf.dn42.
 mail           IN A     172.21.104.34
 mail           IN AAAA  fd3b:ed51:c993::2
 @              IN MX    10 mail.wyf.dn42.
-@               IN TXT   "v=spf1 mx ~all"
+@              IN TXT   "v=spf1 ip4:172.21.104.34 mx ~all"
+_dmarc         IN TXT   "v=DMARC1;p=reject;rua=mailto:dmarcreports@wyf.dn42!10m"
 ; DKIM
-mail._domainkey IN TXT ( "v=DKIM1; k=rsa; " 
-	"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvYVNKaje4HqXPbZGYx6GffU13zkARm54n6CCoYzWvYR9oyFsd7qsGozZe/38ruS3K39YFArlMRFfAuIhd/fRfczNnulJU/P34urtSNL7mnfGv7MONaTRIKnUx+hWgiNsl+jFLdsKASPuEjew4zuUm5bBY+JVwkPYrvBdwD6OTI0zW7TDLqtepQq67jkwT/BdXEtIl9U+PZ9yTsRlX" 
-	"ZFjg1g28tFomVh5kPh9HF5ioYXqmZZRtTkeA3Ei5En+AZjzURB53QsYDCq1PUw5IoPdNHCCpHggJKF5S1cJHUpNnrZeDEVsLtQmDKMyAHWnTgHocN6kAomSudgMt03ed/cwNQIDAQAB"
-) ; 
-dkim._domainkey IN TXT ( "v=DKIM1; k=rsa; " 
-	"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvYVNKaje4HqXPbZGYx6GffU13zkARm54n6CCoYzWvYR9oyFsd7qsGozZe/38ruS3K39YFArlMRFfAuIhd/fRfczNnulJU/P34urtSNL7mnfGv7MONaTRIKnUx+hWgiNsl+jFLdsKASPuEjew4zuUm5bBY+JVwkPYrvBdwD6OTI0zW7TDLqtepQq67jkwT/BdXEtIl9U+PZ9yTsRlX" 
-	"ZFjg1g28tFomVh5kPh9HF5ioYXqmZZRtTkeA3Ei5En+AZjzURB53QsYDCq1PUw5IoPdNHCCpHggJKF5S1cJHUpNnrZeDEVsLtQmDKMyAHWnTgHocN6kAomSudgMt03ed/cwNQIDAQAB"
-) ;
+2026a._domainkey IN TXT (
+ 	"v=DKIM1;h=sha256;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxEMbe6XJtJkJvNTWqZGVYuEEaB7KD3MViKgVb"
+ 	"MxhYc4VXwm/BkTIF6uRe6tuV+0EVzf0mqU0Fie8YJozFcj/qHTHJD+65x8X1ySiWf3cCYtGMPaPpklorAbZYC/iaoP5cf1ggIRfw"
+ 	"YzyoMCPpUHHP3ZYy33FTOhQUSsX5uy+iOK7NkRCjtCt6n4CaTkxb+EkkE8EcLWXMEP70jpzTP5Jn1mpBvA+QZFPezQRicxmxUnX5"
+ 	"1TY+sSuvUNQhik1hWfWnNrjUwxL0buUIhpoP4/2nL61f/dVBKoMadJfOF8Zp0R9Sob3nf71LA5zv2a8Xd73aUUnzYOoZzkrjcRkO"
+ 	"+SMtQIDAQAB"
+)
+2026b._domainkey IN TXT (
+ 	"v=DKIM1;h=sha256;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvDXA3MKUXqz5skzpF6f1o6Tj7jx7wI/Mi4+L6"
+ 	"xkehkBLER7ykvtSQq/xa6EOwvdABuGVo39LkKZEqdiH7elCFEhTKLmGDLvhwDZfmFeUeXWwNujLtQ1kRrm0UDK4KrrrQ9IcPfcUV"
+ 	"aSY5l6eRD+gg/M2ASs6ioEisHD4rmE2DRtVdqHz33Bn7FLjrq7fic3r7l4dXhTCTNEVkDGboUb8pNtI+QPn711Jm6MGDOfJSxPef"
+ 	"+LVkKz7CGmczcEt+cfMPmJ18CJMY3nTLLxnskmf9GD23BLpJZRdyo1W97fkcw18jrwqoDF4jmT+G/2syL5QMFXZn9HpYJDFM57Oa"
+ 	"2C16wIDAQAB"
+)
